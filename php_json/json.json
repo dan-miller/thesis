@@ -1,0 +1,48 @@
+{
+	"name": "flare",
+	"children": [
+		{
+			"name": "Group 1",
+			"children": [
+				{"name": "Item1", "size": 2000},
+				{"name": "Item2", "size": 4000},
+				{"name": "Item3", "size": 1500}
+			]
+		},
+		{
+			"name": "Group 2",
+			"children": [
+				{"name": "Item4", "size": 3200},
+				{"name": "Item4", "size": 1500}
+			]
+		}
+	]
+}
+
+if($last_mnem == $mnemonic) {
+			if ($last_num == $num) {
+				$sectjson = array("name" => $sect, "size" => $seats_taken);
+				$mnemjson['children'][] = $sectjson;
+				$json['children'][] = $mnemjson;
+				$masterjson['children'] = $json;
+			} else {
+
+				$sectjson = array("name" => $sect, "size" => $seats_taken);
+				$mnemjson = array("name" => $num, "children" => $sectjson);
+				$json['children'][] = $mnemjson;
+				$masterjson['children'] = $json;
+				$last_num = $num;
+			} 
+		} else {	
+			$json['name'] = $mnemonic;
+			$mnemjson['name'] = $num;
+
+			$sectjson[] = array("name" => $sect, "size" => $seats_taken);
+			$mnemjson['children'] = $sectjson;
+
+			$json['children'][] = $mnemjson;
+			$masterjson['children'][] = $json;
+
+			$last_mnem = $mnemonic;
+			$last_num = $num;
+		}
