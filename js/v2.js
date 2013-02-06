@@ -7,13 +7,13 @@ var bubble = d3.layout.pack()
     .size([diameter, diameter])
     .padding(1.5);
 
-var svg2 = d3.select("#v2").append("svg")
+var svg = d3.select("#v2").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
     .attr("class", "bubble");
 
 d3.json("php_json/v1.php", function(error, root) {
-  var node = svg2.selectAll(".node")
+  var node = svg.selectAll(".node")
       .data(bubble.nodes(classes(root))
       .filter(function(d) { return !d.children; }))
     .enter().append("g")
