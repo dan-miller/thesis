@@ -1,60 +1,193 @@
-var all_data;
+var all_sections_data;
 
 $.getJSON('php_json/get_bubble_data.php', function(data) {
   all_data = data
 });
 
-var diameter = 1100,
-    format = d3.format(",d"),
-    color = d3.scale.category10();
+var all_courses_data;
 
-var bubble = d3.layout.pack()
-    .sort(null)
-    .size([diameter, diameter])
-    .padding(1.5);
+$.getJSON('php_json/get_sections_totals_data.php', function(data) {
+  all_courses_data = data;
+})
 
-var svg = d3.select("#v4").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-    .attr("class", "bubble");
+var margin = {top: 20, right: 0, bottom: 0, left: 0},
+    width = 1200,
+    height = 900,
+    color = d3.scale.ordinal().range(["#39F50A"]),
+    formatNumber = d3.format(",d"),
+    transitioning;
 
-d3.json('php_json/v4.php?ts_param=2013-01-22%2022:36:00', function(error, root) {
-  var node = svg.selectAll(".node")
-      .data(bubble.nodes(classes(root))
-      .filter(function(d) { return !d.children; }))
-    .enter().append("g")
-      .attr("class", "node")
-      .attr("id", function(d){return d.className})
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+var x = d3.scale.linear()
+    .domain([0, width])
+    .range([0, width]);
 
-  node.append("title")
-      .text(function(d) { return d.className + ": " + format(d.value); });
+var y = d3.scale.linear()
+    .domain([0, height])
+    .range([0, height]);
 
-  node.append("circle")
-      .attr("r", function(d) { return d.r; })
-      .attr("id", function(d){return d.className})
-      .style("fill", function(d) { return color(d.packageName); });
+var treemap = d3.layout.treemap()
+    .children(function(d, depth) { return depth ? null : d.children; })
+    .sort(function(a, b) { return a.value - b.value; })
+    .ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
+    .round(false);
 
-  node.append("text")
-      .attr("dy", ".3em")
-      .style("text-anchor", "middle")
-      .text(function(d) { return d.className.substring(0, d.className.indexOf('-')); });
-});
+var svg = d3.select("div#v5").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.bottom + margin.top)
+    .style("margin-left", -margin.left + "px")
+    .style("margin.right", -margin.right + "px")
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .style("shape-rendering", "crispEdges");
 
-// Returns a flattened hierarchy containing all leaf nodes under the root.
-function classes(root) {
-  var classes = [];
+var grandparent = svg.append("g")
+    .attr("class", "grandparent");
 
-  function recurse(name, node) {
-    if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
-    else classes.push({packageName: name, className: node.name, value: node.size});
+grandparent.append("rect")
+    .attr("y", -margin.top)
+    .attr("width", width)
+    .attr("height", margin.top);
+
+grandparent.append("text")
+    .attr("x", 6)
+    .attr("y", 6 - margin.top)
+    .attr("dy", ".75em");
+
+d3.json("php_json/v3.php", function(root) {
+
+  initialize(root);
+  accumulate(root);
+  layout(root);
+  display(root);
+
+  function initialize(root) {
+    root.x = root.y = 0;
+    root.dx = width;
+    root.dy = height;
+    root.depth = 0;
   }
 
-  recurse(null, root);
-  return {children: classes};
-}
+  // Aggregate the values for internal nodes. This is normally done by the
+  // treemap layout, but not here because of our custom implementation.
+  function accumulate(d) {
+    return d.children
+        ? d.value = d.children.reduce(function(p, v) { return p + accumulate(v); }, 0)
+        : d.value;
+  }
 
-d3.select(self.frameElement).style("height", diameter + "px");
+  // Compute the treemap layout recursively such that each group of siblings
+  // uses the same size (1×1) rather than the dimensions of the parent cell.
+  // This optimizes the layout for the current zoom state. Note that a wrapper
+  // object is created for the parent node for each group of siblings so that
+  // the parent’s dimensions are not discarded as we recurse. Since each group
+  // of sibling was laid out in 1×1, we must rescale to fit using absolute
+  // coordinates. This lets us use a viewport to zoom.
+  function layout(d) {
+    if (d.children) {
+      treemap.nodes({children: d.children});
+      d.children.forEach(function(c) {
+        c.x = d.x + c.x * d.dx;
+        c.y = d.y + c.y * d.dy;
+        c.dx *= d.dx;
+        c.dy *= d.dy;
+        c.parent = d;
+        layout(c);
+      });
+    }
+  }
+
+  function display(d) {
+    grandparent
+        .datum(d.parent)
+        .on("click", transition)
+      .select("text")
+        .text(name(d));
+
+    var g1 = svg.insert("g", ".grandparent")
+        .datum(d)
+        .attr("class", "depth");
+
+    var g = g1.selectAll("g")
+        .data(d.children)
+      .enter().append("g");
+
+    g.filter(function(d) { return d.children; })
+        .classed("children", true)
+        .on("click", transition);
+
+    g.selectAll(".child")
+        .data(function(d) { return d.children || [d]; })
+      .enter().append("rect")
+        .attr("class", "child").style("fill", function(d) { return color(d.parent.name); })
+        .attr("id", function(d){if(d.name.length == 4) {return d.parent.name + "-" + d.name} else return d.name})
+        .call(rect);
+
+    g.append("rect")
+        .attr("class", "parent")
+        .call(rect)
+      .append("title")
+        .text(function(d) { return formatNumber(d.value); });
+
+    g.append("text")
+        .attr("dy", ".75em")
+        .text(function(d) { return d.name; })
+        .call(text);
+
+    function transition(d) {
+      if (transitioning || !d) return;
+      transitioning = true;
+
+      var g2 = display(d),
+          t1 = g1.transition().duration(750),
+          t2 = g2.transition().duration(750);
+
+      // Update the domain only after entering new elements.
+      x.domain([d.x, d.x + d.dx]);
+      y.domain([d.y, d.y + d.dy]);
+
+      // Enable anti-aliasing during the transition.
+      svg.style("shape-rendering", null);
+
+      // Draw child nodes on top of parent nodes.
+      svg.selectAll(".depth").sort(function(a, b) { return a.depth - b.depth; });
+
+      // Fade-in entering text.
+      g2.selectAll("text").style("fill-opacity", 0);
+
+      // Transition to the new view.
+      t1.selectAll("text").call(text).style("fill-opacity", 0);
+      t2.selectAll("text").call(text).style("fill-opacity", 1);
+      t1.selectAll("rect").call(rect);
+      t2.selectAll("rect").call(rect);
+
+      // Remove the old node when the transition is finished.
+      t1.remove().each("end", function() {
+        svg.style("shape-rendering", "crispEdges");
+        transitioning = false;
+      });
+    }
+
+    return g;
+  }
+
+  function text(text) {
+    text.attr("x", function(d) { return x(d.x) + 6; })
+        .attr("y", function(d) { return y(d.y) + 6; });
+  }
+
+  function rect(rect) {
+    rect.attr("x", function(d) { return x(d.x); })
+        .attr("y", function(d) { return y(d.y); })
+        .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
+        .attr("height", function(d) { return y(d.y + d.dy) - y(d.y); });
+  }
+
+  function name(d) {
+    return d.parent
+        ? name(d.parent) + "." + d.name
+        : d.name;
+  }
+});
 
 var ts = ["2012-11-04 22:36:00",
 "2012-11-05 12:36:00",
@@ -295,7 +428,7 @@ var ts = ["2012-11-04 22:36:00",
 "2013-01-22 19:36:00",
 "2013-01-22 22:36:00"];
 
-$('#info').text("lollerskates");
+$('#info').text("Drag slider to select time");
 
 $( '#slider' ).slider({
   min: 0,
@@ -303,9 +436,9 @@ $( '#slider' ).slider({
   step: 1,
   slide: function(event, ui) {
     $( '#info' ).text("Showing timestamp: " + ts[ui.value]);
-    $( '#v4 svg.bubble g circle' ).each(function(d) {
-      var param = $(this).attr("id") + "-" + ts[ui.value];
-      $(this).attr("r", (parseFloat(all_data[param])) / 2.8);
-    })
+    // $( '#v4 svg.bubble g circle' ).each(function(d) {
+    //   var param = $(this).attr("id") + "-" + ts[ui.value];
+    //   $(this).attr("r", (parseFloat(all_data[param])));
+    // })
   }
 });
