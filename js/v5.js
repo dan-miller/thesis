@@ -1,7 +1,7 @@
 var all_sections_data;
 
 $.getJSON('php_json/get_bubble_data.php', function(data) {
-  all_data = data
+  all_sections_data = data
 });
 
 var all_courses_data;
@@ -13,7 +13,7 @@ $.getJSON('php_json/get_sections_totals_data.php', function(data) {
 var margin = {top: 20, right: 0, bottom: 0, left: 0},
     width = 1200,
     height = 900,
-    color = d3.scale.ordinal().range(["#39F50A"]),
+    color = d3.scale.ordinal().range(["#0AF5E9"]),
     formatNumber = d3.format(",d"),
     transitioning;
 
@@ -440,5 +440,38 @@ $( '#slider' ).slider({
     //   var param = $(this).attr("id") + "-" + ts[ui.value];
     //   $(this).attr("r", (parseFloat(all_data[param])));
     // })
+    $( '#v5 rect.child').each(function(d){
+      if($(this).attr("id").length < 10) {
+        var param = $(this).attr("id") + "-" + ts[ui.value];
+        var newValue = all_courses_data[param];
+        if (isNaN(newValue)) {newValue = "0"};
+        if(newValue < 40) { $(this).attr("style" , "fill: #0AF5E9;") }
+        else if((newValue > 40) && (newValue <= 70)) { $(this).attr("style" , "fill: #64F50A;") }
+        else if((newValue > 70) && (newValue <= 120)) { $(this).attr("style" , "fill: #0AF560;") }
+        else if((newValue > 120) && (newValue <= 180)) { $(this).attr("style" , "fill: #0DDB59;") }
+        else if((newValue > 180) && (newValue <= 220)) { $(this).attr("style" , "fill: #0CB349;") }
+        else if((newValue > 220) && (newValue <= 260)) { $(this).attr("style" , "fill: #DAFA23;") }
+        else if((newValue > 260) && (newValue <= 300)) { $(this).attr("style" , "fill: #FADA23;") }
+        else if((newValue > 301) && (newValue <= 350)) { $(this).attr("style" , "fill: #FAB923;") }
+        else if((newValue > 350) && (newValue <= 450)) { $(this).attr("style" , "fill: #FA8723;") }
+        else if(newValue > 450) { $(this).attr("style" , "fill: #FF0000;") }
+        else {$(this).attr("style" , "fill: #0AF5E9;")};
+      } else {
+        var param = $(this).attr("id") + "-" + ts[ui.value];
+        var newValue = all_sections_data[param];
+        if (isNaN(newValue)) {newValue = "0"};
+        if(newValue < 5) { $(this).attr("style" , "fill: #0AF5E9;") }
+        else if((newValue > 5) && (newValue <= 10)) { $(this).attr("style" , "fill: #64F50A;") }
+        else if((newValue > 10) && (newValue <= 25)) { $(this).attr("style" , "fill: #0AF560;") }
+        else if((newValue > 25) && (newValue <= 50)) { $(this).attr("style" , "fill: #0DDB59;") }
+        else if((newValue > 50) && (newValue <= 75)) { $(this).attr("style" , "fill: #0CB349;") }
+        else if((newValue > 75) && (newValue <= 100)) { $(this).attr("style" , "fill: #DAFA23;") }
+        else if((newValue > 100) && (newValue <= 150)) { $(this).attr("style" , "fill: #FADA23;") }
+        else if((newValue > 150) && (newValue <= 200)) { $(this).attr("style" , "fill: #FAB923;") }
+        else if((newValue > 200) && (newValue <= 250)) { $(this).attr("style" , "fill: #FA8723;") }
+        else if(newValue > 250) { $(this).attr("style" , "fill: #FF0000;") }
+        else {$(this).attr("style" , "fill: #0AF5E9;")};
+      };
+    })
   }
 });
