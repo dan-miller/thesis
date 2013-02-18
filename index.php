@@ -1,35 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>miller@stardock</title>
-  <meta name="description" content="Contains 4th Year Thesis for Daniel Miller">
-  <meta name="author" content="Daniel Miller">
-
-  <link href="../css/bootstrap.css" rel="stylesheet">
-  <style> body { padding-top: 60px; } </style>
-  <link href="../css/bootstrap-responsive.css" rel="stylesheet">
-
-  <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
-  <script type="text/javascript" src="../js/jquery-ui-1.8.24.custom.min.js"></script>
-  <script type="text/javascript" src="js/d3.v3.js"></script>
-  <!-- Uncomment for production and delete non-minified
-  <script type="text/javascript" src="js/d3.v3.min.js"></script>
-  -->
-
-  
-
-</head>
-
-<body>
-
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a style="color: white" class="brand" href="../">miller@stardock</a>
-      </div>
-    </div>
-  </div>
+<?php require_once('header.php'); ?>
 
   <div class="container">
     <h1>Visualizing Enrollment Data from the University of Virginia</h1>
@@ -38,6 +7,7 @@
     <div class="alert alert-danger">
       Currently under construction.  Estimated completion: late April, 2013.
     </div>
+    <p>Daniel Miller, SEAS 4th Year, B.S. Computer Science candidate.</p>
     <p>Working with <a href="http://www.cs.virginia.edu/~sherriff">Professor Mark Sherriff</a>.</p>
     <p>Special thanks to <a href="http://rabi.phys.virginia.edu/lab3e/">Professor Lou Bloomfield</a> for allowing the use of data found on <a href="http://rabi.phys.virginia.edu/mySIS/CS">Lou's List</a>.</p>
     <p>Source code can be found <a href="js/">here</a>.</p>
@@ -54,7 +24,12 @@
         </ul>
       <li><a href="view4.html">Visualization 4</a> - Time Lapse Bubble Chart - SEAS Undergraduate Lecture Enrollment - Spring Semester 2013</li>
       <li><a href="view5.html">Visualization 5</a> - Time Lapse Heat Map Zoomable Box Chart - SEAS Undergraduate Lecture Enrollment - Spring Semester 2013</li>
-      <li><a href="view6.html">Visualization 6</a> - Zoomable Box Chart - SEAS Undergrad Breakdown w/ENGR 1620 Fall Semester 2012</li>
+      <li><a href="view6.html">Visualization 6</a> - Zoomable Box Chart - SEAS Distribution of ENGR 1620 Teaching Hours - Fall Semester 2012</li>
+        <ul style="list-style-type: none">
+          <li><a href="view6-11.html">Fall 2011</a></li>
+          <li><a href="view6-10.html">Fall 2010</a></li>
+          <li><a href="view6-09.html">Fall 2009</a></li>
+        </ul>
       <li><a href="view7.html">Visualization 7</a> - T3/TF</li>
       <li><a href="view8.html">Visualization 8</a> - Largest Departments Lecture Breakdown</li>
       <li><a href="view6.html">Visualization 9</a> - Node/Link Chart</li>
