@@ -26,12 +26,12 @@
       <li><a href="view5.html">Visualization 5</a> - Time Lapse Heat Map Zoomable Box Chart - SEAS Undergraduate Lecture Enrollment - Spring Semester 2013</li>
       <li><a href="view6.html">Visualization 6</a> - Zoomable Box Chart - SEAS Distribution of ENGR 1620 Teaching Hours Total Since Fall 2007 - <a href="view6-bar.html">Bar Graph</a></li>
         <ul style="list-style-type: none">
-          <li><a href="view6-12.html">Fall 2012</a> - Bar Graph</li>
-          <li><a href="view6-11.html">Fall 2011</a> - Bar Graph</li>
-          <li><a href="view6-10.html">Fall 2010</a> - Bar Graph</li>
-          <li><a href="view6-09.html">Fall 2009</a> - Bar Graph</li>
-          <li><a href="view6-08.html">Fall 2008</a> - Bar Graph</li>
-          <li><a href="view6-07.html">Fall 2007</a> - Bar Graph</li>
+          <li><a href="view6-12.html">Fall 2012</a> - <a href="view6-12-bar.html">Bar Graph</a></li>
+          <li><a href="view6-11.html">Fall 2011</a> - <a href="view6-11-bar.html">Bar Graph</a></li>
+          <li><a href="view6-10.html">Fall 2010</a> - <a href="view6-10-bar.html">Bar Graph</a></li>
+          <li><a href="view6-09.html">Fall 2009</a> - <a href="view6-09-bar.html">Bar Graph</a></li>
+          <li><a href="view6-08.html">Fall 2008</a> - <a href="view6-08-bar.html">Bar Graph</a></li>
+          <li><a href="view6-07.html">Fall 2007</a> - <a href="view6-07-bar.html">Bar Graph</a></li>
         </ul>
       <li><a href="view7.html">Visualization 7</a> - SEAS Undergraduate Enrollment Activity Heat Map - Spring Semester 2013</li>
       <li><a href="view8.html">Visualization 8</a> - T3/TF</li>

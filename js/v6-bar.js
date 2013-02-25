@@ -1,33 +1,73 @@
-var data = [4, 8, 15, 16, 23, 42];
+var data = [30, 15, 30, 9, 72, 48, 21, 39, 54];
 
-var chart = d3.select("div#v6bar").append("svg")
-	.attr("class", "chart")
-	.attr("width", 440)
-	.attr("height", 160)
-	.append("g")
-  .attr("transform", "translate(10,15)");
+var labels = ["BME",
+              "CHE",
+              "CE",
+              "CS",
+              "ECE",
+              "ENGR",
+              "MSE",
+              "MAE",
+              "SYS"];
 
-var x = d3.scale.linear()
-	.domain([0, d3.max(data)])
-	.range([0, 420])
+var w = 900,
+   h = 230,
+   x = d3.scale.linear().domain([0, 80]).range([0, w]),
+   y = d3.scale.ordinal().domain(d3.range(data.length)).rangeBands([0, h], .2);
 
-var y = d3.scale.ordinal()
-  .domain(data)
-  .rangeBands([0, 120]);
+var vis = d3.select("div#v6bar")
+ .append("svg:svg")
+   .attr("width", w + 40)
+   .attr("height", h + 20)
+ .append("svg:g")
+   .attr("transform", "translate(20,0)");
 
-chart.selectAll("rect")
-  .data(data)
-  .enter().append("rect")
-  .attr("y", y)
-  .attr("width", x)
-  .attr("height", 20);
+var bars = vis.selectAll("g.bar")
+   .data(data)
+ .enter().append("svg:g")
+   .attr("class", "bar")
+   .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; });
 
-chart.selectAll("text")
-  .data(data)
-  .enter().append("text")
-  .attr("x", x)
-  .attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
-  .attr("dx", -3) // padding-right
-  .attr("dy", ".35em") // vertical-align: middle
-  .attr("text-anchor", "end") // text-align: right
-  .text(String);
+bars.append("svg:rect")
+   .attr("fill", "steelblue")
+   .attr("width", x)
+   .attr("height", y.rangeBand());
+
+bars.append("svg:text")
+   .attr("x", x)
+   .attr("y", y.rangeBand() / 2)
+   .attr("dx", -6)
+   .attr("dy", ".35em")
+   .attr("fill", "white")
+   .attr("text-anchor", "end")
+   .text(x.tickFormat(100));
+
+bars.append("svg:text")
+   .attr("x", 0)
+   .attr("y", y.rangeBand() / 2)
+   .attr("dx", 9)
+   .attr("dy", ".35em")
+   .attr("fill", "white")
+   .text(function(d, i) { return labels[i] });
+
+var rules = vis.selectAll("g.rule")
+   .data(x.ticks(10))
+ .enter().append("svg:g")
+   .attr("class", "rule")
+   .attr("transform", function(d) { return "translate(" + x(d) + ", 0)"; });
+
+rules.append("svg:line")
+   .attr("y1", h)
+   .attr("y2", h - 250)
+   .attr("stroke", "gray");
+
+rules.append("svg:text")
+   .attr("y", h + 9)
+   .attr("dy", ".71em")
+   .attr("text-anchor", "middle")
+   .text(x.tickFormat(10));
+
+vis.append("svg:line")
+   .attr("y1", 0)
+   .attr("y2", h)
+   .attr("stroke", "black");
