@@ -8,8 +8,8 @@ function get_random_color() {
 }
 
 var margin = {top: 20, right: 0, bottom: 0, left: 0},
-    width = 1200,
-    height = 900,
+    width = 1000,
+    height = 600,
     color = d3.scale.category20(),
     formatNumber = d3.format(",d"),
     transitioning;
@@ -127,6 +127,7 @@ d3.json("php_json/v6.php", function(root) {
     g.append("text")
         .attr("dy", ".75em")
         .text(function(d) { return d.name + " - " + d.value; })
+        .attr("fill", "white")
         .call(text);
 
     function transition(d) {
