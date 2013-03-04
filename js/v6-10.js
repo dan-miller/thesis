@@ -1,15 +1,6 @@
-function get_random_color() {
-    var letters = '0123456789ABCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.round(Math.random() * 15)];
-    }
-    return color;
-}
-
 var margin = {top: 20, right: 0, bottom: 0, left: 0},
-    width = 1000,
-    height = 600,
+    width = 1200,
+    height = 900,
     color = d3.scale.category20(),
     formatNumber = d3.format(",d"),
     transitioning;
@@ -115,19 +106,26 @@ d3.json("php_json/v6-10.php", function(root) {
     g.selectAll(".child")
         .data(function(d) { return d.children || [d]; })
       .enter().append("rect")
-        .attr("class", "child").style("fill", function(d) { return get_random_color(); })
+        .attr("id", function(d) { return d.name })
+        .attr("class", "child").style("fill", function(d) {
+          if(d.name.indexOf("ENGR-1620") != -1)  return d3.rgb("gray");
+          else return color(d.parent.name); 
+        })
         .call(rect);
 
     g.append("rect")
         .attr("class", "parent")
         .call(rect)
       .append("title")
-        .text(function(d) { return d.name + " - " + d.value; })
+        .text(function(d) { return formatNumber(d.value); });
 
     g.append("text")
         .attr("dy", ".75em")
-        .text(function(d) { return d.name + " - " + d.value; })
-        .attr("fill", "white")
+        .text(function(d) { return d.name; })
+        .attr("fill", function(d) {
+          if(d.name.indexOf("ENGR-1620") != -1)  return d3.rgb("white");
+          else return d3.rgb("white"); 
+        })
         .call(text);
 
     function transition(d) {

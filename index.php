@@ -24,11 +24,12 @@
         </ul>
       <li><a href="view4.html">Visualization 4</a> - Time Lapse Bubble Chart - SEAS Undergraduate Lecture Enrollment - Spring Semester 2013</li>
       <li><a href="view5.html">Visualization 5</a> - Time Lapse Heat Map Zoomable Box Chart - SEAS Undergraduate Lecture Enrollment - Spring Semester 2013</li>
-      <li><a href="view6-12.html">Visualization 6</a> - Zoomable Box Chart - SEAS Undergraduate Lecture Breakdown w/ENGR 1620 - Academic Year 2012-2013 - <a href="view6-12-bar.html">Bar Graph</a> (ENGR hours only)</li>
+      <li><a href="view6-12.html">Visualization 6</a> - Zoomable Box Chart - SEAS Undergraduate Lecture Breakdown w/ENGR 1620 - Academic Year 2012-2013 - <a href="view6-12-bar.html">Bar Graph</a> (ENGR 1620 hours only)</li>
         <ul style="list-style-type: none">
-          <li><a href="view6-11.html">Academic Year 2011-2012</a> - <a href="view6-11-bar.html">Bar Graph</a> (ENGR hours only)</li>
-          <li><a href="view6-10.html">Academic Year 2010-2011</a> - <a href="view6-10-bar.html">Bar Graph</a> (ENGR hours only)</li>
-          <li><a href="view6-09.html">Academic Year 2009-2010</a> - <a href="view6-09-bar.html">Bar Graph</a> (ENGR hours only)</li>
+          <li><a href="view6-11.html">Academic Year 2011-2012</a> - <a href="view6-11-bar.html">Bar Graph</a> (ENGR 1620 hours only)</li>
+          <li><a href="view6-10.html">Academic Year 2010-2011</a> - <a href="view6-10-bar.html">Bar Graph</a> (ENGR 1620 hours only)</li>
+          <li><a href="view6-09.html">Academic Year 2009-2010</a> - <a href="view6-09-bar.html">Bar Graph</a> (ENGR 1620 hours only)</li>
+          <li><a href="view6-bar.html">Total ENGR 1620 Hours per Department since 2009</a></li>
         </ul>
       <li><a href="view7.html">Visualization 7</a> - SEAS Undergraduate Enrollment Activity Heat Map - Spring Semester 2013</li>
       <li><a href="view8.html">Visualization 8</a> - T3/TF</li>

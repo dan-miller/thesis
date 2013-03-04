@@ -108,7 +108,7 @@ d3.json("php_json/v6-12.php", function(root) {
       .enter().append("rect")
         .attr("id", function(d) { return d.name })
         .attr("class", "child").style("fill", function(d) {
-          if(d.name.indexOf("ENGR-1620") != -1)  return d3.rgb("black");
+          if(d.name.indexOf("ENGR-1620") != -1)  return d3.rgb("gray");
           else return color(d.parent.name); 
         })
         .call(rect);
