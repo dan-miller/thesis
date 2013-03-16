@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>miller@stardock</title>
+  <meta name="description" content="Contains 4th Year Thesis for Daniel Miller">
+  <meta name="author" content="Daniel Miller">
+
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/bootstrap-responsive.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
+
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/d3.v3.js"></script>
+  <!-- Uncomment for production and delete non-minified
+  <script type="text/javascript" src="js/d3.v3.min.js"></script>
+  -->
+
+  <style> body { padding-top: 60px; } </style>
+
+<style>
+
+#v3 {
+  width: 1200px;
+  height: 900px;
+  background: #bbb;
+}
+
+text {
+  pointer-events: none;
+}
+
+.grandparent text {
+  font-weight: bold;
+}
+
+rect {
+  fill: none;
+  stroke: #fff;
+}
+
+rect.parent,
+.grandparent rect {
+  stroke-width: 2px;
+}
+
+.grandparent rect {
+  fill: #fff;
+}
+
+.children rect.parent,
+.grandparent rect {
+  cursor: pointer;
+}
+
+rect.parent {
+  pointer-events: all;
+}
+
+.children:hover rect.child,
+.grandparent:hover rect {
+  fill: #aaa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a style="color: white" class="brand" href="../">miller@stardock</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <legend>Visualization 5</legend>
+    <div id="legend" style="background: black; color: white; width: 1200px; padding: 5px">
+      <strong>Color Legend</strong><br>
+      <span style="color: #848484;">No Change</span>
+      &middot;
+      <span style="color: #0AF5E9;">Negative Change</span>
+      &middot;
+      <span style="color: #0AF560;">Small Positive Change</span>
+      &middot;
+      <span style="color: #0CB349;">Moderate Positive Change</span>
+      &middot;
+      <span style="color: #FA8723;">Significant Positive Change</span>
+      &middot;
+      <span style="color: #FF0000;">Highest Positive Change</span>
+    </div>
+    <p id="info" style="font-weight: bold"></p>
+    <div id="slider" style="width: 600px"></div>
+    <div id="v7"><script type="text/javascript" src="js/v7.js"></script></div>
+  </div>
+
+</body>
+</html>
