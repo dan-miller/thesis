@@ -4,13 +4,9 @@
     <h1>Visualizing Enrollment Data from the University of Virginia</h1>
     <h2>A Case Study on Data Mining Techniques, Analytics, and Visualization Methods</h2>
     <legend>Information</legend>
-    <div class="alert alert-danger">
-      Currently under construction.  Estimated completion: late April, 2013.
-    </div>
     <p>I am <a href="http://people.virginia.edu/~dgm3df/">Daniel Miller</a>, SEAS 4th Year, B.S. Computer Science candidate.</p>
     <p>Working with <a href="http://www.cs.virginia.edu/~sherriff">Professor Mark Sherriff</a>.</p>
     <p>Special thanks to <a href="http://rabi.phys.virginia.edu/lab3e/">Professor Lou Bloomfield</a> for allowing the use of data found on <a href="http://rabi.phys.virginia.edu/mySIS/CS">Lou's List</a>.</p>
-    <p>Source code can be found <a href="js/">here</a>.</p>
     <legend>Links to Visualizations</legend>
     <ul style="list-style-type: none;">
       <li><a href="view1.html">Visualization 1</a> - Zoomable Box Chart - Largest Mnemonics Breakdown</li>
@@ -32,10 +28,9 @@
           <li><a href="view6-bar.html">Total ENGR 1620 Hours per Department since 2009</a></li>
         </ul>
       <li><a href="view7.html">Visualization 7</a> - SEAS Undergraduate Enrollment Activity Heat Map - Spring Semester 2013</li>
-      <li><a href="view8.html">Visualization 8</a> - T3/TF</li>
-      <li><a href="view9.html">Visualization 9</a> - Largest Departments Lecture Breakdown</li>
-      <li><a href="view10.html">Visualization 10</a> - Node/Link Chart</li>
     </ul>
+    <hr>
+    <p style="text-align: center;"><small><a href="mitlicense.php">Source Code License Statement</a> for Visualizations 5, 6, and 7.</small></p>
   </div>
 
 </body>

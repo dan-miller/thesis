@@ -442,23 +442,23 @@ $( '#slider' ).slider({
         var newValue = all_courses_data[param];
         if (isNaN(newValue)) {newValue = "0"};
         if(newValue == 0) { $(this).attr("style" , "fill: #848484;") }
-        else if((newValue > 0) && (newValue <= 2)) { $(this).attr("style" , "fill: #64F50A;") }
-        else if((newValue > 70) && (newValue <= 120)) { $(this).attr("style" , "fill: #0AF560;") }
-        else if((newValue > 120) && (newValue <= 180)) { $(this).attr("style" , "fill: #0DDB59;") }
-        else if((newValue > 180) && (newValue <= 220)) { $(this).attr("style" , "fill: #0CB349;") }
-        else if((newValue > 220) && (newValue <= 260)) { $(this).attr("style" , "fill: #DAFA23;") }
+        else if(newValue < 0) { $(this).attr("style" , "fill: #0AF5E9;") }
+        else if((newValue > 0) && (newValue <= 2)) { $(this).attr("style" , "fill: #0AF560;") }
+        else if((newValue > 2) && (newValue <= 10)) { $(this).attr("style" , "fill: #0CB349;") }
+        else if((newValue > 10) && (newValue <= 18)) { $(this).attr("style" , "fill: #FA8723;") }
+        else if((newValue > 18)) { $(this).attr("style" , "fill: #FF0000;") }
         else {$(this).attr("style" , "fill: #848484;")};
       } else {
         var param = $(this).attr("id") + "-" + ts[ui.value];
         var newValue = all_sections_data[param];
         if (isNaN(newValue)) {newValue = "0"};
         if(newValue == 0) { $(this).attr("style" , "fill: #848484;") }
-        else if((newValue > 5) && (newValue <= 10)) { $(this).attr("style" , "fill: #64F50A;") }
-        else if((newValue > 10) && (newValue <= 25)) { $(this).attr("style" , "fill: #0AF560;") }
-        else if((newValue > 25) && (newValue <= 50)) { $(this).attr("style" , "fill: #0DDB59;") }
-        else if((newValue > 50) && (newValue <= 75)) { $(this).attr("style" , "fill: #0CB349;") }
-        else if((newValue > 75) && (newValue <= 100)) { $(this).attr("style" , "fill: #DAFA23;") }
-        else {$(this).attr("style" , "fill: #848484;")};
+        else if(newValue < 0) { $(this).attr("style" , "fill: #0AF5E9;") }
+        else if((newValue > 0) && (newValue <= 2)) { $(this).attr("style" , "fill: #0AF560;") }
+        else if((newValue > 2) && (newValue <= 8)) { $(this).attr("style" , "fill: #0CB349;") }
+        else if((newValue > 8) && (newValue <= 14)) { $(this).attr("style" , "fill: #FA8723;") }
+        else if((newValue > 14)) { $(this).attr("style" , "fill: #FF0000;") }
+        else {$(this).attr("style" , "fill: #848484;")}
       };
     })
   }
