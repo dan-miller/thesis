@@ -295,7 +295,7 @@ var ts = ["2012-11-04 22:36:00",
 "2013-01-22 19:36:00",
 "2013-01-22 22:36:00"];
 
-$('#info').text("lollerskates");
+$('#info').text("Drag slider to select time");
 
 $( '#slider' ).slider({
   min: 0,

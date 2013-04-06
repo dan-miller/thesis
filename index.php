@@ -30,7 +30,7 @@
       <li><a href="view7.html">Visualization 7</a> - SEAS Undergraduate Enrollment Activity Heat Map - Spring Semester 2013</li>
     </ul>
     <hr>
-    <p style="text-align: center;"><small><a href="mitlicense.php">Source Code License Statement</a> for Visualizations 5, 6, and 7.</small></p>
+    <p style="text-align: center;"><small><a href="mitlicense.php">Source Code License Statement</a> for Visualizations 3, 5, 6, and 7.</small></p>
   </div>
 
 </body>
